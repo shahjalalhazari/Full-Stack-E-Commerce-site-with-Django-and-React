@@ -1,14 +1,19 @@
+import { Container } from 'react-bootstrap';
 import './App.css';
 import "./bootstrap.min.css";
-import Headers from './components/Headers/Headers'
+import Header from './components/Header/Header';
+
 
 function App() {
 
   return (
     <>
-      <Headers/>
+      <Header />
+      <Container>
+        <h1>Welcome! welcome!! Welcome!!! to First website of Django and React.</h1>
+      </Container>
     </>
-  )
+  );
 }
 
 export default App
