@@ -1,18 +1,21 @@
 import { Container } from 'react-bootstrap';
 import './App.css';
 import "./bootstrap.min.css";
-import Header from './components/Header/Header';
+import Footer from './component/Footer';
+import Header from './component/Header';
+import Home from './pages/Home';
 
 
 function App() {
 
   return (
-    <>
+    <main>
       <Header />
-      <Container>
-        <h1>Welcome! welcome!! Welcome!!! to First website of Django and React.</h1>
+      <Container className='my-5'>
+        <Home />
       </Container>
-    </>
+      <Footer />
+    </main>
   );
 }
 
