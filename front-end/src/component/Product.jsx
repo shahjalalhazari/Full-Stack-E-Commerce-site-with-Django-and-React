@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Button, Card } from 'react-bootstrap';
+import ProductRating from './ProductRating';
 
 const Product = ({ product }) => {
   const { _id, image, name, price, numReviews, rating } = product;
@@ -18,9 +19,7 @@ const Product = ({ product }) => {
 
           <Card.Text as={"div"}>
             <div className="my-3">
-              <em style={{color: "#111"}}>
-                {rating} from {numReviews} Reviews
-              </em>
+              <ProductRating value={rating} text={`${numReviews} Reviews`} />
             </div>
           </Card.Text>
 
