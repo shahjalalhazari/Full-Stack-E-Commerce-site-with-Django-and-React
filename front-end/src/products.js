@@ -14,7 +14,7 @@ const products = [
   },
   {
     '_id': '2',
-    'name': 'iPhone 11 Pro 256GB Memory',
+    'name': 'iPhone 11 Pro 256GB Memory with 3800 mph Battery',
     'image': '/images/phone.jpg',
     'description':
       'Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life',
@@ -27,14 +27,14 @@ const products = [
   },
   {
     '_id': '3',
-    'name': 'Cannon EOS 80D DSLR Camera',
+    'name': 'Cannon EOS 80D DSLR Camera with full kit',
     'image': '/images/camera.jpg',
     'description':
       'Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design',
     'brand': 'Cannon',
     'category': 'Electronics',
     'price': 929.99,
-    'countInStock': 5,
+    'countInStock': 0,
     'rating': 3,
     'numReviews': 12,
   },

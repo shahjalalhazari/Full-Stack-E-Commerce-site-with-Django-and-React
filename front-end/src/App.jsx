@@ -1,21 +1,25 @@
 import { Container } from 'react-bootstrap';
+
 import './App.css';
 import "./bootstrap.min.css";
-import Footer from './component/Footer';
+
 import Header from './component/Header';
-import Home from './pages/Home';
+import Footer from './component/Footer';
+import { Outlet } from 'react-router-dom';
 
 
 function App() {
 
   return (
-    <main>
+    <>
       <Header />
-      <Container className='my-5'>
-        <Home />
-      </Container>
+      <main className="my-5">
+        <Container>
+          <Outlet/>
+        </Container>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

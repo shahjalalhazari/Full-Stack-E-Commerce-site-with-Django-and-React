@@ -1,11 +1,14 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
       <header>
         <Navbar expand="lg" className="bg-dark" variant="dark" collapseOnSelect>
           <Container>
-            <Navbar.Brand href="/">ProShop</Navbar.Brand>
+            <Link to={"/"}>
+              <Navbar.Brand href="/">ProShop</Navbar.Brand>
+            </Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">

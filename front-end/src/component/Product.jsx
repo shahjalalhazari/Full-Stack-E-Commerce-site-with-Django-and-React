@@ -1,21 +1,22 @@
 /* eslint-disable react/prop-types */
 import { Button, Card } from 'react-bootstrap';
 import ProductRating from './ProductRating';
+import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
   const { _id, image, name, price, numReviews, rating } = product;
 
     return (
-      <Card style={{ width: "18rem" }}>
-        <a href={`/product/${_id}`}>
+      <Card>
+        <Link to={`/product/${_id}`}>
           <Card.Img variant="top" src={image} />
-        </a>
+        </Link>
         <Card.Body className='m-1'>
-          <a href={`/product/${_id}`}>
+          <Link to={`/product/${_id}`}>
             <Card.Title as={  "div"}>
               <strong>{name}</strong>
             </Card.Title>
-          </a>
+          </Link>
 
           <Card.Text as={"div"}>
             <div className="my-3">
