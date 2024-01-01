@@ -1,14 +1,28 @@
 /* eslint-disable react/prop-types */
 import { Link, useParams } from "react-router-dom";
-import products from "../products"
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import ProductRating from "../component/ProductRating";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ProductDetails = () => {
   // Get the id parameter from the URL
   const { id } = useParams();
 
-  const product = products.find((p) => p._id === id);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
+      setProduct(data);
+    };
+
+    fetchProduct();
+  }, [id]);
+
+
+
+
   
   return (
     <>
