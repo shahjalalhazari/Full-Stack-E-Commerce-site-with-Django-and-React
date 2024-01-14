@@ -4,6 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import listProducts from "../actions/productAction";
 import Messages from "../component/Messages";
+import LoadingSpinner from "../component/LoadingSpinner";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Home = () => {
         <h1>Latest Products</h1>
         <div className="mt-3">
           {loading ? (
-            <h3>Loading...</h3>
+            <LoadingSpinner/>
           ) : error ? (
             <Messages variant="warning">{error}</Messages>
           ) : (
