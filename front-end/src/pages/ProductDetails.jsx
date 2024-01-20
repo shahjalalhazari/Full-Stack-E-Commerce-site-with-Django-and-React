@@ -1,7 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Image,
+  ListGroup,
+  Row,
+  Form,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import listProductDetails from "./../actions/productDetailsAction";
@@ -10,6 +18,8 @@ import LoadingSpinner from "../component/LoadingSpinner";
 import Messages from "./../component/Messages";
 
 const ProductDetails = () => {
+  const { quantity, setQuantity } = useState(1);
+
   // Get the id parameter from the URL
   const { id } = useParams();
 
@@ -95,6 +105,30 @@ const ProductDetails = () => {
                       </Col>
                     </Row>
                   </ListGroup.Item>
+
+                  {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Qty</Col>
+
+                        <Col>
+                          <Form.Select
+                            as="select"
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                          >
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
 
                   <ListGroup.Item className="text-center">
                     <Button
