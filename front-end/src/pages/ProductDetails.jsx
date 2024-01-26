@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   Card,
@@ -18,7 +18,8 @@ import LoadingSpinner from "../component/LoadingSpinner";
 import Messages from "./../component/Messages";
 
 const ProductDetails = () => {
-  const { quantity, setQuantity } = useState(1);
+  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   // Get the id parameter from the URL
   const { id } = useParams();
@@ -30,6 +31,12 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(listProductDetails(id));
   }, [id, dispatch]);
+
+  // Add To Cart Handler
+  const addToCartHandler = () => {
+    console.log(`Button Click. -> ${quantity}`);
+    navigate(`/cart/${id}?qty=${quantity}`);
+  };
 
   return (
     <>
@@ -54,16 +61,19 @@ const ProductDetails = () => {
         // display content
         <div className="mt-5">
           <Row>
+            {/* Product Image */}
             <Col md={4}>
               <Image src={product.image} alt={product.name} fluid />
             </Col>
 
             <Col md={4}>
               <ListGroup variant="flush">
+                {/* Product Title */}
                 <ListGroup.Item>
                   <h2>{product.name}</h2>
                 </ListGroup.Item>
 
+                {/* Product Review */}
                 <ListGroup.Item>
                   <ProductRating
                     value={product.rating}
@@ -87,6 +97,7 @@ const ProductDetails = () => {
 
             <Col md={3}>
               <Card>
+                {/* Price */}
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
@@ -97,6 +108,7 @@ const ProductDetails = () => {
                     </Row>
                   </ListGroup.Item>
 
+                  {/* Product Status */}
                   <ListGroup.Item>
                     <Row>
                       <Col>Status:</Col>
@@ -106,6 +118,7 @@ const ProductDetails = () => {
                     </Row>
                   </ListGroup.Item>
 
+                  {/* Product Quantity */}
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
@@ -130,11 +143,13 @@ const ProductDetails = () => {
                     </ListGroup.Item>
                   )}
 
+                  {/* Add To Cart Button */}
                   <ListGroup.Item className="text-center">
                     <Button
                       className="btn-block"
                       disabled={product.countInStock == 0}
                       type="button"
+                      onClick={addToCartHandler}
                     >
                       Add to Cart
                     </Button>
