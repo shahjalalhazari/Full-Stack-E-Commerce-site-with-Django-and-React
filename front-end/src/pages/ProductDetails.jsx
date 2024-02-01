@@ -34,7 +34,6 @@ const ProductDetails = () => {
 
   // Add To Cart Handler
   const addToCartHandler = () => {
-    console.log(`Button Click. -> ${quantity}`);
     navigate(`/cart/${id}?qty=${quantity}`);
   };
 
