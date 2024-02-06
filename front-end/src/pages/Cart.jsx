@@ -1,13 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { addToCart } from "./../actions/cartAction";
-import { Button, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Image,
+  ListGroup,
+  Row,
+} from "react-bootstrap";
 import Messages from "../component/Messages";
 
 const Cart = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // product id
   const productId = location.search && Number(location.pathname.split("/")[2]);
@@ -25,6 +34,15 @@ const Cart = () => {
       dispatch(addToCart(productId, productQty));
     }
   }, [dispatch, productId, productQty]);
+
+  const removeFromCartHandler = (id) => {
+    console.log(id);
+  };
+
+  const checkoutHandler = () => {
+    console.log("Go to shipping page");
+    navigate(`/login?redirect=shipping`);
+  };
 
   return (
     <>
@@ -76,7 +94,9 @@ const Cart = () => {
                         as="select"
                         value={product.quantity}
                         onChange={(e) =>
-                          dispatch(addToCart(product.product, e.target.value))
+                          dispatch(
+                            addToCart(product.product, Number(e.target.value))
+                          )
                         }
                       >
                         {[...Array(product.countInStock).keys()].map((x) => (
@@ -87,7 +107,11 @@ const Cart = () => {
                       </Form.Select>
                     </Col>
                     <Col md={1}>
-                      <Button type="button" variant="danger">
+                      <Button
+                        type="button"
+                        variant="danger"
+                        onClick={() => removeFromCartHandler(product.product)}
+                      >
                         <i className="fas fa-trash" />
                       </Button>
                     </Col>
@@ -97,7 +121,41 @@ const Cart = () => {
             </ListGroup>
           )}
         </Col>
-        <Col md={4}></Col>
+        <Col md={4}>
+          <Card>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                <h2>
+                  Total:{" "}
+                  <strong>
+                    {cartItems.reduce((acc, item) => acc + item.quantity, 0)}{" "}
+                  </strong>
+                  Items
+                </h2>
+                <h3>
+                  Price:&nbsp;
+                  <strong>
+                    $
+                    {cartItems
+                      .reduce(
+                        (acc, item) => acc + item.quantity * item.price,
+                        0
+                      )
+                      .toFixed(2)}
+                  </strong>
+                </h3>
+              </ListGroup.Item>
+            </ListGroup>
+            <Button
+              type="button"
+              className="btn-block m-3"
+              disabled={cartItems.length === 0}
+              onClick={checkoutHandler}
+            >
+              Proceed To Checkout
+            </Button>
+          </Card>
+        </Col>
       </Row>
     </>
   );
