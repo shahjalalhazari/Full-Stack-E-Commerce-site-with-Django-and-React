@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { addToCart } from "./../actions/cartAction";
+import { addToCart, removeFromCart } from "./../actions/cartAction";
 import {
   Button,
   Card,
@@ -36,7 +36,7 @@ const Cart = () => {
   }, [dispatch, productId, productQty]);
 
   const removeFromCartHandler = (id) => {
-    console.log(id);
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {
