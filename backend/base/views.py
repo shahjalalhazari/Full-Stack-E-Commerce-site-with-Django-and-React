@@ -4,18 +4,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Product
-from .serializers import ProductSerializers, UserSerializers
+from .serializers import ProductSerializers, UserSerializers, UserSerializerWithToken
 from .products import products
-
-
 
 # SIMPLE JET
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-
-    """This is how we can customize info of token inside"""
+    """This is how we can customize data of token inside"""
     # @classmethod
     # def get_token(cls, user):
     #     token = super().get_token(user)
@@ -28,9 +25,16 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
 
+        """
         data["username"] = self.user.username
         data["email"] = self.user.email
         # these infos comes with "access" & "refresh" token
+        """
+
+        serializer = UserSerializerWithToken(self.user).data
+        
+        for k, v in serializer.items():
+            data[k] = v
 
         return data
 
