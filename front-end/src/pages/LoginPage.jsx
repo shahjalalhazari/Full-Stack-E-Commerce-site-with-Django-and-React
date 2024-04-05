@@ -14,11 +14,13 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
-  const { error, loading, userInfo } = useSelector((state) => state.userLogin);
+  const { error, loading } = useSelector((state) => state.userLogin);
 
   /** if user is already logged in and user try to see login page.
    * redirect user to previous page or home page.
    */
+  const userInfoFromLS = localStorage.getItem("userInfo");
+  const userInfo = JSON.parse(userInfoFromLS);
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
