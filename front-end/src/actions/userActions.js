@@ -1,5 +1,10 @@
-import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from "../constants/userConstants"
-import { axios } from 'axios';
+import {
+    USER_LOGIN_FAIL,
+    USER_LOGIN_REQUEST,
+    USER_LOGIN_SUCCESS
+} from "../constants/userConstants";
+import axios from 'axios';
+
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -26,7 +31,7 @@ export const login = (email, password) => async (dispatch) => {
         })
 
         // set user login info to local storage with token
-        localStorage.setItem("userInfo", JSON.stringify(data))
+        localStorage.setItem("userInfo", JSON.stringify(data));
 
     } catch (error) {
         dispatch({
@@ -34,6 +39,6 @@ export const login = (email, password) => async (dispatch) => {
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message
-        })
+        });
     }
-}
+};

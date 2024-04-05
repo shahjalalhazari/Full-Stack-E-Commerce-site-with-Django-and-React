@@ -11,7 +11,9 @@ const listProductDetails = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
     // TODO: update this url
-    const { data } = await axios.get(`http://127.0.0.1:8000/api/products/${id}/`);
+    const { data } = await axios.get(
+      `http://127.0.0.1:8000/api/products/${id}/`
+    );
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
