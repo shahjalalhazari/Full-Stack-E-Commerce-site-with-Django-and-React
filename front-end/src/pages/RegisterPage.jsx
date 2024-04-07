@@ -1,46 +1,56 @@
 import { useEffect } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import FormContainer from "../component/formContainer";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./../actions/userActions";
-import Messages from "./../component/Messages";
-import LoadingSpinner from "../component/LoadingSpinner";
-import FormInputField from "../component/FormInputField";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-const LoginPage = () => {
+import FormContainer from "../component/formContainer";
+import FormInputField from "../component/FormInputField";
+import LoadingSpinner from "../component/LoadingSpinner";
+import Messages from "../component/Messages";
+import { register } from "../actions/userActions";
+
+const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const location = useLocation();
   const navigate = useNavigate();
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
-  const { error, loading } = useSelector((state) => state.userLogin);
+  const { error, loading, userInfo } = useSelector(
+    (state) => state.userRegister
+  );
 
   /** if user is already logged in and user try to see login page.
    * redirect user to previous page or home page.
    */
-  const userInfoFromLS = localStorage.getItem("userInfo");
-  const userInfo = JSON.parse(userInfoFromLS);
+  // const userInfoFromLS = localStorage.getItem("userInfo");
+  // const userInfo = JSON.parse(userInfoFromLS);
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
   }, [userInfo, redirect, navigate]);
 
-  const handleUserLogin = (event) => {
+  const handleUserRegister = (event) => {
     event.preventDefault();
 
     const form = event.target;
+    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    dispatch(login(email, password));
+    const confirmPassword = form.confirmPassword.value;
+
+    console.log("name", name);
+    console.log("email", email);
+    console.log("password", password);
+    console.log("Confirm Password", confirmPassword);
+    // dispatch(register(name, email, password));
   };
 
   return (
     <FormContainer>
       <h1 className="mb-4" style={{ fontWeight: "bold", fontSize: "2.75rem" }}>
-        Login
+        Register
       </h1>
 
       {/* Display error messages */}
@@ -49,14 +59,22 @@ const LoginPage = () => {
       {/* Display loading spinner */}
       {loading && <LoadingSpinner />}
 
-      <Form onSubmit={handleUserLogin}>
+      <Form onSubmit={handleUserRegister}>
         <div className="d-grid gap-4">
+          {/* Name Field */}
+          <FormInputField
+            id={"name"}
+            label={"Name"}
+            type={"text"}
+            placeholder={"Enter Full Name"}
+          ></FormInputField>
+
           {/* E-mail Field */}
           <FormInputField
             id={"email"}
-            label={"E-mail Address"}
+            label={"E-mail"}
             type={"email"}
-            placeholder={"Enter Your E-mail"}
+            placeholder={"Enter E-mail"}
           ></FormInputField>
 
           {/* Password Field */}
@@ -64,27 +82,31 @@ const LoginPage = () => {
             id={"password"}
             label={"Password"}
             type={"password"}
-            placeholder={"Enter Your Password"}
+            placeholder={"Enter Password"}
+          ></FormInputField>
+
+          {/* Confirm Password Field */}
+          <FormInputField
+            id={"confirmPassword"}
+            label={"Confirm Password"}
+            type={"password"}
+            placeholder={"Enter Password Again"}
           ></FormInputField>
 
           {/* Submit Button */}
           <Button variant="primary" type="submit" disabled={loading}>
-            Login
+            Register
           </Button>
         </div>
       </Form>
 
       <Row className="py-4">
         <Col>
-          {"Don't have an account?"}{" "}
+          {"Already have an account?"}{" "}
           <Link
-            to={
-              redirect
-                ? `/user/register?redirect=${redirect}`
-                : "/user/register"
-            }
+            to={redirect ? `/user/login?redirect=${redirect}` : "/user/login"}
           >
-            Register Now
+            Sign In
           </Link>
         </Col>
       </Row>
@@ -92,4 +114,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
