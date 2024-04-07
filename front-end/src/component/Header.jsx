@@ -2,13 +2,17 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../actions/userActions";
 
 const Header = () => {
   const userInfoFromLS = localStorage.getItem("userInfo");
   const userInfo = JSON.parse(userInfoFromLS);
 
+  const dispatch = useDispatch();
+
   const handleUserLogout = () => {
-    console.log("User Logged Out");
+    dispatch(logout());
   };
 
   return (
