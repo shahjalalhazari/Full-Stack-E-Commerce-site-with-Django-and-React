@@ -75,14 +75,19 @@ export const register = (name, email, password) => async (dispatch) => {
         // post user register details to server by Axios
         const { data } = await axios.post(
             `http://127.0.0.1:8000/api/users/register/`,
-            {"name":name, "username": email, "password": password },
+            {"name":name, "email": email, "password": password },
             config
         );
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
             payload: data
-        })
+        });
+
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: data
+        });
 
         // set user login info to local storage with token
         localStorage.setItem("userInfo", JSON.stringify(data));

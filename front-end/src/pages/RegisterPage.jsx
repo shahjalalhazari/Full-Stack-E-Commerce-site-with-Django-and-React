@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Form, Row } from "react-bootstrap";
@@ -10,6 +10,8 @@ import Messages from "../component/Messages";
 import { register } from "../actions/userActions";
 
 const RegisterPage = () => {
+  const [message, setMessage] = useState("");
+
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -40,11 +42,15 @@ const RegisterPage = () => {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
 
-    console.log("name", name);
-    console.log("email", email);
-    console.log("password", password);
-    console.log("Confirm Password", confirmPassword);
-    // dispatch(register(name, email, password));
+    if (password !== confirmPassword) {
+      setMessage("Don't match password.");
+    } else {
+      dispatch(register(name, email, password));
+      console.log("name:", name);
+      console.log("email:", email);
+      console.log("password:", password);
+      console.log("Confirm Password:", confirmPassword);
+    }
   };
 
   return (
@@ -92,6 +98,9 @@ const RegisterPage = () => {
             type={"password"}
             placeholder={"Enter Password Again"}
           ></FormInputField>
+
+          {/* error massage for password matching. */}
+          {message && <Messages variant={"danger"}>{message}</Messages>}
 
           {/* Submit Button */}
           <Button variant="primary" type="submit" disabled={loading}>
