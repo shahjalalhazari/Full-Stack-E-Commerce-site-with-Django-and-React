@@ -42,14 +42,10 @@ const RegisterPage = () => {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
 
-    if (password !== confirmPassword) {
-      setMessage("Don't match password.");
-    } else {
+    if (password === confirmPassword) {
       dispatch(register(name, email, password));
-      console.log("name:", name);
-      console.log("email:", email);
-      console.log("password:", password);
-      console.log("Confirm Password:", confirmPassword);
+    } else {
+      setMessage("Password Do Not Match.");
     }
   };
 

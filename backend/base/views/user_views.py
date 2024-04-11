@@ -73,6 +73,26 @@ def getUserProfile(request):
     return Response(serializer.data)
 
 
+# Update Single Profile User View
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    serializer = UserSerializerWithToken(user, many=False)
+
+    # submitted data
+    data = request.data
+    user.first_name = data["name"]
+    user.username = data["email"]
+    user.email = data["email"]
+    # if user try to change password & password field isn't blank.
+    if data["password"] != "":
+        user.password = make_password(data["[password]"])
+    
+    user.save()
+    return Response(serializer.data)
+
+
 # All User View
 @api_view(["GET"])
 @permission_classes([IsAdminUser])
