@@ -16,7 +16,6 @@ import {
     USER_PROFILE_UPDATE_REQUEST,
     USER_PROFILE_UPDATE_SUCCESS,
     USER_PROFILE_UPDATE_FAIL,
-    USER_PROFILE_UPDATE_RESET,
 } from "../constants/userConstants";
 import axios from 'axios';
 

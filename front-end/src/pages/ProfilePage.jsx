@@ -2,25 +2,25 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Form, Row } from "react-bootstrap";
-
-// import FormInputField from "../component/FormInputField";
-// import LoadingSpinner from "../component/LoadingSpinner";
+import { getUserDetails, userProfileUpdate } from "../actions/userActions";
 import Messages from "../component/Messages";
-import { getUserDetails } from "../actions/userActions";
 import LoadingSpinner from "../component/LoadingSpinner";
+import { USER_PROFILE_UPDATE_RESET } from "../constants/userConstants";
 
 const ProfilePage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { error, loading, user } = useSelector((state) => state.userDetails);
   const { userInfo } = useSelector((state) => state.userLogin);
+  const { success } = useSelector((state) => state.userProfileUpdate);
 
   useEffect(() => {
     // if user isn't logged in, then redirect to login page
@@ -28,29 +28,33 @@ const ProfilePage = () => {
       navigate("/user/login");
     } else {
       // if no user or no user name, get user details
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_PROFILE_UPDATE_RESET });
         dispatch(getUserDetails("profile"));
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [userInfo, user, dispatch, navigate]);
+  }, [userInfo, user, dispatch, navigate, success]);
 
   const handleUpdateDetails = (event) => {
     event.preventDefault();
 
-    console.log("name: ", name);
-    console.log("email: ", email);
-    console.log("password: ", password);
-    console.log("Confirm Password: ", confirmPassword);
-
     if (password !== confirmPassword) {
-      setMessage("Password Do Not Match.");
+      setErrorMessage("Password Do Not Match.");
     } else {
-      console.log("Updating...");
+      dispatch(
+        userProfileUpdate({
+          id: user._id,
+          name: name,
+          email: email,
+          password: password,
+        })
+      );
+      setSuccessMessage("Details Updated Successfully!");
+      setErrorMessage("");
     }
-    console.log("Form Submitted...");
   };
 
   return (
@@ -58,6 +62,10 @@ const ProfilePage = () => {
       <Col md={3}>
         <h2>My Profile</h2>
         <hr />
+        {/* Update Success messages */}
+        {successMessage && (
+          <Messages variant={"success"}>{successMessage}</Messages>
+        )}
         {/* Display error messages */}
         {error && <Messages variant={"danger"}>{error}</Messages>}
         {/* Display loading spinner */}
@@ -115,7 +123,9 @@ const ProfilePage = () => {
             </Form.Group>
 
             {/* error massage for password matching. */}
-            {message && <Messages variant={"danger"}>{message}</Messages>}
+            {errorMessage && (
+              <Messages variant={"danger"}>{errorMessage}</Messages>
+            )}
 
             {/* Submit Button */}
             <Button variant="primary" type="submit" disabled={loading}>
