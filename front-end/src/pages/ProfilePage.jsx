@@ -12,6 +12,8 @@ import LoadingSpinner from "../component/LoadingSpinner";
 const ProfilePage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
@@ -38,17 +40,16 @@ const ProfilePage = () => {
   const handleUpdateDetails = (event) => {
     event.preventDefault();
 
-    // const form = event.target;
-    // const name = form.name.value;
-    // const email = form.email.value;
-    // const password = form.password.value;
-    // const confirmPassword = form.confirmPassword.value;
+    console.log("name: ", name);
+    console.log("email: ", email);
+    console.log("password: ", password);
+    console.log("Confirm Password: ", confirmPassword);
 
-    // if (password !== confirmPassword) {
-    //   setMessage("Password Do Not Match.");
-    // } else {
-    //   console.log("Updating...");
-    // }
+    if (password !== confirmPassword) {
+      setMessage("Password Do Not Match.");
+    } else {
+      console.log("Updating...");
+    }
     console.log("Form Submitted...");
   };
 
@@ -59,7 +60,6 @@ const ProfilePage = () => {
         <hr />
         {/* Display error messages */}
         {error && <Messages variant={"danger"}>{error}</Messages>}
-
         {/* Display loading spinner */}
         {loading && <LoadingSpinner />}
 
@@ -68,26 +68,50 @@ const ProfilePage = () => {
           <div className="d-grid gap-4">
             {/* Name Field */}
             <Form.Group controlId="name">
-              <Form.Label style={{ fontWeight: 500, fontSize: "1.1rem" }}>
+              <Form.Label style={{ fontWeight: 500, fontSize: "1rem" }}>
                 name
               </Form.Label>
-              <Form.Control type="text" value={name}></Form.Control>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              ></Form.Control>
             </Form.Group>
 
             {/* E-mail Field */}
             <Form.Group controlId={"email"}>
-              <Form.Label style={{ fontWeight: 500, fontSize: "1.1rem" }}>
+              <Form.Label style={{ fontWeight: 500, fontSize: "1rem" }}>
                 E-mail
               </Form.Label>
-              <Form.Control type="email" value={email}></Form.Control>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              ></Form.Control>
             </Form.Group>
 
             {/* Password Field */}
             <Form.Group controlId={"password"}>
-              <Form.Label style={{ fontWeight: 500, fontSize: "1.1rem" }}>
+              <Form.Label style={{ fontWeight: 500, fontSize: "1rem" }}>
                 Password
               </Form.Label>
-              <Form.Control type="password"></Form.Control>
+              <Form.Control
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            {/* Confirm Password Field */}
+            <Form.Group controlId={"ConfirmPassword"}>
+              <Form.Label style={{ fontWeight: 500, fontSize: "1rem" }}>
+                Confirm Password
+              </Form.Label>
+              <Form.Control
+                type="password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              ></Form.Control>
             </Form.Group>
 
             {/* error massage for password matching. */}

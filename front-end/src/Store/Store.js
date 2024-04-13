@@ -4,7 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { thunk } from "redux-thunk";
 import { productDetailsReducer, productListReducer } from "../reducers/productReducer";
 import { cartReducer } from "../reducers/cartReducer";
-import { userDetailsReducer, userLoginReducer, userRegisterReducer } from "../reducers/userReducers";
+import { userDetailsReducer, userLoginReducer, userProfileUpdateReducer, userRegisterReducer } from "../reducers/userReducers";
 
 
 const reducer = combineReducers({
@@ -14,6 +14,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
+  userProfileUpdate: userProfileUpdateReducer,
 });
 
 // get cart items from local storage
