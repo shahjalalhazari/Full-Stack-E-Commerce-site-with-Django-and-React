@@ -87,7 +87,7 @@ def updateUserProfile(request):
     user.email = data["email"]
     # if user try to change password & password field isn't blank.
     if data["password"] != "":
-        user.password = make_password(data["[password]"])
+        user.password = make_password(data["password"])
     
     user.save()
     return Response(serializer.data)
