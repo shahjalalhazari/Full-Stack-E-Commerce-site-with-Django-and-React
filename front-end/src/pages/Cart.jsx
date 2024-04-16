@@ -18,6 +18,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.log(location);
+
   // product id
   const productId = location.search && Number(location.pathname.split("/")[2]);
   // product quantity
@@ -28,6 +30,9 @@ const Cart = () => {
   // Select The Cart
   const cart = useSelector((state) => state.cart);
   const cartItems = cart.cartItems;
+
+  // get user info
+  const { userInfo } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (productId) {
@@ -40,8 +45,11 @@ const Cart = () => {
   };
 
   const checkoutHandler = () => {
-    console.log("Go to shipping page");
-    navigate(`/login?redirect=shipping`);
+    if (!userInfo) {
+      navigate(`/user/login/`);
+    } else {
+      navigate("/shipping-address");
+    }
   };
 
   return (

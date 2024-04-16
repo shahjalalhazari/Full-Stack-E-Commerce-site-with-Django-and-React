@@ -11,6 +11,7 @@ import Cart from "./pages/Cart.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "cart/:id?",
         element: <Cart />,
+      },
+      {
+        path: "shipping-address",
+        element: <ShippingAddressPage />,
       },
       // user related pages
       {

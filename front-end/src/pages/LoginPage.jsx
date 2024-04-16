@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import FormContainer from "../component/formContainer";
+import FormContainer from "../component/FormContainer";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./../actions/userActions";
