@@ -1,11 +1,11 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "react-bootstrap";
 
 import FormContainer from "./../component/FormContainer";
-import FormInputField from "../component/FormInputField";
 import { orderShippingAddress } from "./../actions/cartAction";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import CheckoutSteps from "../component/CheckoutSteps";
 
 const ShippingAddressPage = () => {
   const navigate = useNavigate();
@@ -23,18 +23,13 @@ const ShippingAddressPage = () => {
   const handleShippingAddress = (event) => {
     event.preventDefault();
 
-    // const form = event.target;
-    // const address = form.address.value;
-    // const city = form.city.value;
-    // const postalCode = form.postalCode.value;
-    // const country = form.country.value;
-
     dispatch(orderShippingAddress({ address, city, postalCode, country }));
     navigate("/");
   };
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Shipping Address</h1>
       <Form onSubmit={handleShippingAddress}>
         <div className="d-grid gap-4">

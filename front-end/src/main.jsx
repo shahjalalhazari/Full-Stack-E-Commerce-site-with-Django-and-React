@@ -31,20 +31,20 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: "shipping-address",
+        path: "/shipping-address",
         element: <ShippingAddressPage />,
       },
       // user related pages
       {
-        path: "user/login",
+        path: "/user/login",
         element: <LoginPage />,
       },
       {
-        path: "user/register",
+        path: "/user/register",
         element: <RegisterPage />,
       },
       {
-        path: "user/profile",
+        path: "/user/profile",
         element: <ProfilePage />,
       },
     ],
