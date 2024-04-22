@@ -1,5 +1,10 @@
 /* eslint-disable no-case-declarations */
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, ORDER_SHIPPING_ADDRESS } from "../constants/cartConstants";
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  ORDER_PAYMENT_METHOD,
+  ORDER_SHIPPING_ADDRESS
+} from "../constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {
@@ -31,6 +36,13 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
     
     // save shipping address
     case ORDER_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload
+      }
+    
+    // save order payment method
+    case ORDER_PAYMENT_METHOD:
       return {
         ...state,
         shippingAddress: action.payload

@@ -6,6 +6,8 @@ import { Button, Form } from "react-bootstrap";
 import FormContainer from "./../component/FormContainer";
 import CheckoutSteps from "../component/CheckoutSteps";
 
+import { orderPaymentMethod } from "../actions/cartAction";
+
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
 
@@ -20,7 +22,7 @@ const PaymentPage = () => {
 
   const paymentMethodHandler = (event) => {
     event.preventDefault();
-    // dispatch(savePaymentMethod(paymentMethod));
+    dispatch(orderPaymentMethod(paymentMethod));
     navigate("/confirm-order");
   };
 
