@@ -12,6 +12,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
+import PaymentPage from "./pages/PaymentPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
         path: "/shipping-address",
         element: <ShippingAddressPage />,
       },
+      {
+        path: "/payment",
+        element: <PaymentPage />,
+      },
+
       // user related pages
       {
         path: "/user/login",

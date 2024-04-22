@@ -11,26 +11,24 @@ const ShippingAddressPage = () => {
   const navigate = useNavigate();
 
   const { shippingAddress } = useSelector((state) => state.cart);
-  console.log(shippingAddress);
+  const dispatch = useDispatch();
 
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
   const [country, setCountry] = useState(shippingAddress.country);
 
-  const dispatch = useDispatch();
-
   const handleShippingAddress = (event) => {
     event.preventDefault();
 
     dispatch(orderShippingAddress({ address, city, postalCode, country }));
-    navigate("/");
+    navigate("/payment");
   };
 
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
-      <h1>Shipping Address</h1>
+      <h1 className="mb-5">Shipping Address</h1>
       <Form onSubmit={handleShippingAddress}>
         <div className="d-grid gap-4">
           {/* Address Field */}
@@ -91,7 +89,7 @@ const ShippingAddressPage = () => {
 
           {/* Submit Button */}
           <Button variant="primary" type="submit">
-            Submit
+            Continue
           </Button>
         </div>
         {/* onchange={(e) => setAddress(e.target.value)} */}
