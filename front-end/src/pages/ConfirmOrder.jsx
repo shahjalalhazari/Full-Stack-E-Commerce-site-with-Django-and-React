@@ -101,28 +101,36 @@ const ConfirmOrder = () => {
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Items:</Col>
+                  <Col>
+                    <strong>Items:</strong>
+                  </Col>
                   <Col>${cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Shipping Price:</Col>
+                  <Col>
+                    <strong>Shipping Price:</strong>
+                  </Col>
                   <Col>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Tax / Vat:</Col>
+                  <Col>
+                    <strong>Tax / Vat:</strong>
+                  </Col>
                   <Col>${cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Total:</Col>
+                  <Col>
+                    <strong>Total:</strong>
+                  </Col>
                   <Col>${cart.total}</Col>
                 </Row>
               </ListGroup.Item>
