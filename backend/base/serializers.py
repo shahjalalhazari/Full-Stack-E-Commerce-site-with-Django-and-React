@@ -29,7 +29,6 @@ class UserSerializers(serializers.ModelSerializer):
         return name
 
 
-
 """User Serializer with refresh token"""
 class UserSerializerWithToken(UserSerializers):
     token = serializers.SerializerMethodField(read_only=True)
@@ -76,7 +75,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_orders(self, obj):
-        items = obj.orderItem_set.all()
+        items = obj.orderitem_set.all()
         serializer = OrderCartSerializer(items, many=True)
         return serializer.data
     

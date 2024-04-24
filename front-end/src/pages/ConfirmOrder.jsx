@@ -1,11 +1,19 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import CheckoutSteps from "../component/CheckoutSteps";
-import { useSelector } from "react-redux";
+
 import Messages from "../component/Messages";
-import { Link } from "react-router-dom";
+import CheckoutSteps from "../component/CheckoutSteps";
+
+import { orderCreate } from "../actions/orderAction";
 
 const ConfirmOrder = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const cart = useSelector((state) => state.cart);
+  const { order, success, error } = useSelector((state) => state.orderCreate);
 
   // add all the item's price together
   cart.itemsPrice = cart.cartItems
@@ -22,7 +30,30 @@ const ConfirmOrder = () => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
+  // if user doesn't select any payment method
+  if (!cart.paymentMethod) {
+    navigate("/payment");
+  }
+
+  // after order success redirect user to order details page.
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+    }
+  }, [success, navigate, order]);
+
   const confirmOrderHandler = () => {
+    dispatch(
+      orderCreate({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.total,
+      })
+    );
     console.log("Order Confirmed");
   };
   return (
@@ -135,11 +166,24 @@ const ConfirmOrder = () => {
                 </Row>
               </ListGroup.Item>
 
+              {error && (
+                <ListGroup.Item>
+                  <Messages variant={"danger"}>{error}</Messages>
+                </ListGroup.Item>
+              )}
+              {!cart.paymentMethod && (
+                <ListGroup.Item>
+                  <Messages variant={"warning"}>
+                    Please go back and select a payment method
+                  </Messages>
+                </ListGroup.Item>
+              )}
+
               <ListGroup.Item>
                 <Button
                   type="button"
                   style={{ width: "100%" }}
-                  disabled={cart.cartItems.length === 0}
+                  disabled={cart.cartItems.length === 0 || !cart.paymentMethod}
                   onClick={confirmOrderHandler}
                 >
                   Confirm Order
