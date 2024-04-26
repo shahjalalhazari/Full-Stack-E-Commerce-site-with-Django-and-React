@@ -54,7 +54,7 @@ const ConfirmOrder = () => {
         totalPrice: cart.total,
       })
     );
-    console.log("Order Confirmed");
+    navigate(`/order/${order._id}`);
   };
   return (
     <div>
