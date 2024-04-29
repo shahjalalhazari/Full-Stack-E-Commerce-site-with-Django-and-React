@@ -48,7 +48,7 @@ class Order(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
 
     def __str__(self):
-        return f"{str(self.user)}'s order at {self.createdAt}"
+        return f"({self._id}) {str(self.user)}'s order at {self.createdAt}"
     
 
 

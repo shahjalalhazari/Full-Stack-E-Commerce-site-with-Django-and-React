@@ -1,6 +1,7 @@
 /* eslint-disable no-case-declarations */
 import {
   CART_ADD_ITEM,
+  CART_CLEAR_ITEMS,
   CART_REMOVE_ITEM,
   ORDER_PAYMENT_METHOD,
   ORDER_SHIPPING_ADDRESS
@@ -46,6 +47,13 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
       return {
         ...state,
         paymentMethod: action.payload
+      }
+    
+    // clear order cart
+    case CART_CLEAR_ITEMS:
+      return {
+        ...state,
+        cartItems: []
       }
 
       default:

@@ -1,5 +1,6 @@
 export const CART_ADD_ITEM = "CART_ADD_ITEM";
 export const CART_REMOVE_ITEM = "CART_REMOVE_ITEM";
+export const CART_CLEAR_ITEMS = "CART_CLEAR_ITEMS";
 
 // save order shipping address
 export const ORDER_SHIPPING_ADDRESS = "ORDER_SHIPPING_ADDRESS";

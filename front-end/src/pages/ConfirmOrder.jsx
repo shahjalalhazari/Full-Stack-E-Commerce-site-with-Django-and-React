@@ -7,6 +7,7 @@ import Messages from "../component/Messages";
 import CheckoutSteps from "../component/CheckoutSteps";
 
 import { orderCreate } from "../actions/orderAction";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
 const ConfirmOrder = () => {
   const dispatch = useDispatch();
@@ -35,12 +36,13 @@ const ConfirmOrder = () => {
     navigate("/payment");
   }
 
-  // after order success redirect user to order details page.
+  // after order success redirect user to order details page & clear order cart.
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
     }
-  }, [success, navigate, order]);
+  }, [success, navigate, order, dispatch]);
 
   const confirmOrderHandler = () => {
     dispatch(
